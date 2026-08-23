@@ -110,7 +110,7 @@ export const PriceComparePage: React.FC = () => {
                 </div>
 
                 <div className="overflow-x-auto rounded-xl border border-slate-200">
-                  <table className="w-full text-left text-xs text-slate-600">
+                  <table className="w-full text-left text-xs text-slate-600 min-w-[500px]">
                     <thead className="bg-slate-100 text-slate-700 uppercase font-extrabold text-[11px] tracking-wider border-b border-slate-200">
                       <tr>
                         <th className="py-3 px-4">FORNECEDOR</th>

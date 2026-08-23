@@ -124,7 +124,7 @@ export const DeliveryMapPage: React.FC = () => {
       {/* Main Map & Orders Panel Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         {/* Map Column (8 Cols) */}
-        <div className="lg:col-span-8 min-h-[550px]">
+        <div className="lg:col-span-8 h-[360px] sm:h-[450px] lg:h-auto lg:min-h-[550px]">
           <DeliveryMap
             zones={zones}
             motoboys={motoboys}
@@ -138,7 +138,7 @@ export const DeliveryMapPage: React.FC = () => {
         </div>
 
         {/* Orders Panel Column (4 Cols) */}
-        <div className="lg:col-span-4 min-h-[550px]">
+        <div className="lg:col-span-4 h-auto min-h-[350px] lg:min-h-[550px]">
           <DeliveryOrdersPanel
             zones={zones}
             orders={orders}

@@ -28,7 +28,7 @@ export const MapaVicosaPage: React.FC = () => {
         </div>
 
         {/* Cluster Selector Tabs */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar w-full sm:w-auto pb-1">
           {mockClusterGeoData.map((cluster) => (
             <button
               key={cluster.id}
@@ -36,7 +36,7 @@ export const MapaVicosaPage: React.FC = () => {
                 setSelectedCluster(cluster);
                 setSelectedPoint(null);
               }}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-extrabold transition-all cursor-pointer whitespace-nowrap ${
                 selectedCluster.id === cluster.id
                   ? 'bg-[#FF862F] text-white shadow-md shadow-[#FF862F]/20 scale-[1.02]'
                   : 'bg-slate-100 text-slate-800 border border-slate-300 hover:text-slate-900 hover:bg-slate-200'
@@ -50,11 +50,11 @@ export const MapaVicosaPage: React.FC = () => {
       </div>
 
       {/* Main Grid: 70% Map / 30% Panel */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1 min-h-[600px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1">
         {/* Left Column: Interactive Leaflet Map (70% - 8 cols on lg) */}
-        <div className="lg:col-span-8 flex flex-col space-y-4 min-h-[500px]">
+        <div className="lg:col-span-8 flex flex-col space-y-4 h-[380px] sm:h-[480px] lg:h-auto lg:min-h-[500px]">
           {/* Map Component */}
-          <div className="flex-1 min-h-[480px] relative">
+          <div className="flex-1 min-h-[300px] sm:min-h-[420px] relative">
             <InteractiveMap
               selectedCluster={selectedCluster}
               onSelectPoint={(pt) => setSelectedPoint(pt)}

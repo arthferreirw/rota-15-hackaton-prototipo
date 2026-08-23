@@ -113,10 +113,10 @@ export const ProfitabilityPage: React.FC = () => {
       {/* Filterable Table */}
       <Card className="bg-white border border-slate-200 space-y-4 shadow-xs">
         {/* Filters */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
           <button
             onClick={() => setFilter('all')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               filter === 'all' ? 'bg-[#FF862F] text-white shadow-xs' : 'bg-slate-100 text-slate-800 border border-slate-300 hover:bg-slate-200'
             }`}
           >
@@ -124,7 +124,7 @@ export const ProfitabilityPage: React.FC = () => {
           </button>
           <button
             onClick={() => setFilter('high_margin')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               filter === 'high_margin' ? 'bg-emerald-600 text-white shadow-xs' : 'bg-slate-100 text-slate-800 border border-slate-300 hover:bg-slate-200'
             }`}
           >
@@ -132,7 +132,7 @@ export const ProfitabilityPage: React.FC = () => {
           </button>
           <button
             onClick={() => setFilter('low_margin')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               filter === 'low_margin' ? 'bg-[#FF3131] text-white shadow-xs' : 'bg-slate-100 text-slate-800 border border-slate-300 hover:bg-slate-200'
             }`}
           >
@@ -140,7 +140,7 @@ export const ProfitabilityPage: React.FC = () => {
           </button>
           <button
             onClick={() => setFilter('top_sales')}
-            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               filter === 'top_sales' ? 'bg-amber-500 text-white shadow-xs' : 'bg-slate-100 text-slate-800 border border-slate-300 hover:bg-slate-200'
             }`}
           >
@@ -150,7 +150,7 @@ export const ProfitabilityPage: React.FC = () => {
 
         {/* Table */}
         <div className="overflow-x-auto border border-slate-200 rounded-xl">
-          <table className="w-full text-left text-xs text-slate-600">
+          <table className="w-full text-left text-xs text-slate-600 min-w-[600px]">
             <thead className="bg-slate-100 text-slate-700 uppercase font-extrabold text-[11px] tracking-wider border-b border-slate-200">
               <tr>
                 <th className="py-3 px-4">PRODUTO</th>

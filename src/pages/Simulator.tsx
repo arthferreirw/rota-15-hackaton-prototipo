@@ -37,22 +37,22 @@ export const SimulatorPage: React.FC = () => {
       </div>
 
       {/* Main Combined Impact Hero */}
-      <div className="bg-gradient-to-r from-emerald-50 via-white to-orange-50/40 border border-emerald-200 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
+      <div className="bg-gradient-to-r from-emerald-50 via-white to-orange-50/40 border border-emerald-200 rounded-2xl p-4 sm:p-6 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 sm:gap-6 shadow-xs">
         <div>
           <div className="flex items-center gap-2 text-emerald-800 text-xs font-extrabold uppercase tracking-wider">
             <Calculator size={16} />
             <span>IMPACTO TOTAL PROJETADO NO LUCRO</span>
           </div>
-          <div className="text-4xl md:text-5xl font-black text-emerald-600 mt-1">
+          <div className="text-3xl sm:text-4xl md:text-5xl font-black text-emerald-600 mt-1">
             +{formatCurrency(totalCombinedImpact)}
-            <span className="text-base font-normal text-slate-500 ml-2">/mês</span>
+            <span className="text-sm sm:text-base font-normal text-slate-500 ml-2">/mês</span>
           </div>
-          <p className="text-sm text-slate-600 mt-2 max-w-xl font-medium">
+          <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-xl font-medium">
             Resultado combinado das simulações de reajuste de preço, redução de desperdício e troca de fornecedor.
           </p>
         </div>
 
-        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center min-w-[200px] shadow-2xs">
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-center w-full md:w-auto md:min-w-[200px] shadow-2xs">
           <span className="text-xs text-slate-500 block font-medium">Lucro Atual Estimado</span>
           <span className="text-lg font-bold text-slate-900">R$ 15.610/mês</span>
           <span className="text-xs text-emerald-700 font-extrabold block mt-2">
@@ -62,7 +62,7 @@ export const SimulatorPage: React.FC = () => {
       </div>
 
       {/* Simulator Modules Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         {/* Module 1: Price Adjustment */}
         <Card className="flex flex-col justify-between shadow-xs">
           <div>

@@ -88,10 +88,10 @@ export const DashboardPage: React.FC = () => {
         </div>
 
         {/* Period Selector Buttons */}
-        <div className="flex items-center gap-2 bg-slate-100 border border-slate-300 p-1 rounded-xl shadow-2xs">
+        <div className="flex items-center justify-between sm:justify-start gap-1 sm:gap-2 bg-slate-100 border border-slate-300 p-1 rounded-xl shadow-2xs w-full sm:w-auto">
           <button
             onClick={() => setPeriod('semana')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
+            className={`flex-1 sm:flex-initial text-center px-3 py-2 sm:py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
               period === 'semana'
                 ? 'bg-[#FF862F] text-white shadow-xs'
                 : 'text-slate-800 hover:text-slate-900 hover:bg-slate-200'
@@ -101,7 +101,7 @@ export const DashboardPage: React.FC = () => {
           </button>
           <button
             onClick={() => setPeriod('mes')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
+            className={`flex-1 sm:flex-initial text-center px-3 py-2 sm:py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
               period === 'mes'
                 ? 'bg-[#FF862F] text-white shadow-xs'
                 : 'text-slate-800 hover:text-slate-900 hover:bg-slate-200'
@@ -111,7 +111,7 @@ export const DashboardPage: React.FC = () => {
           </button>
           <button
             onClick={() => setPeriod('personalizado')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
+            className={`flex-1 sm:flex-initial text-center px-3 py-2 sm:py-1.5 rounded-lg text-xs font-extrabold transition-all cursor-pointer ${
               period === 'personalizado'
                 ? 'bg-[#FF862F] text-white shadow-xs'
                 : 'text-slate-800 hover:text-slate-900 hover:bg-slate-200'
@@ -124,22 +124,27 @@ export const DashboardPage: React.FC = () => {
 
       {/* Date Picker Inputs if Personalizado */}
       {period === 'personalizado' && (
-        <div className="bg-white border border-slate-200 p-3 rounded-xl flex items-center gap-3 text-xs text-slate-600 w-fit shadow-xs">
-          <Calendar size={16} className="text-[#FF862F]" />
-          <span>De:</span>
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="bg-slate-50 border border-slate-200 rounded-lg p-1.5 text-slate-800 focus:outline-none focus:border-[#FF862F]"
-          />
-          <span>Até:</span>
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="bg-slate-50 border border-slate-200 rounded-lg p-1.5 text-slate-800 focus:outline-none focus:border-[#FF862F]"
-          />
+        <div className="bg-white border border-slate-200 p-3 rounded-xl flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-slate-600 w-full sm:w-fit shadow-xs">
+          <div className="flex items-center gap-1.5 font-bold">
+            <Calendar size={16} className="text-[#FF862F]" />
+            <span>Período:</span>
+          </div>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <span>De:</span>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="flex-1 bg-slate-50 border border-slate-200 rounded-lg p-1.5 text-slate-800 focus:outline-none focus:border-[#FF862F]"
+            />
+            <span>Até:</span>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="flex-1 bg-slate-50 border border-slate-200 rounded-lg p-1.5 text-slate-800 focus:outline-none focus:border-[#FF862F]"
+            />
+          </div>
         </div>
       )}
 
@@ -147,7 +152,7 @@ export const DashboardPage: React.FC = () => {
       <SavingsIndicator totalSavingsMonthly={2170} />
 
       {/* Primary KPI Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4">
         <MetricCard
           label="Faturamento"
           value={metrics.revenue}

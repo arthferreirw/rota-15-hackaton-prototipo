@@ -155,7 +155,7 @@ export const InventoryPage: React.FC = () => {
         </div>
 
         <div className="overflow-x-auto border-t border-slate-200">
-          <table className="w-full text-left text-xs text-slate-600">
+          <table className="w-full text-left text-xs text-slate-600 min-w-[640px]">
             <thead className="bg-slate-100 text-slate-700 uppercase font-extrabold text-[11px] tracking-wider border-b border-slate-200">
               <tr>
                 <th className="py-3 px-4">PRODUTO</th>
@@ -217,7 +217,7 @@ export const InventoryPage: React.FC = () => {
       {/* CRUD Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-xl">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-5 sm:p-6 space-y-4 shadow-xl max-h-[90vh] overflow-y-auto">
             <h3 className="text-lg font-bold text-slate-900">
               {editingItem ? 'Editar Insumo' : 'Adicionar Novo Insumo'}
             </h3>

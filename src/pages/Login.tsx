@@ -15,7 +15,7 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 selection:bg-[#FF862F] selection:text-white">
-      <div className="w-full max-w-md bg-white border border-slate-200 rounded-2xl p-8 shadow-xl relative overflow-hidden">
+      <div className="w-full max-w-md bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
         {/* Decorative background glow */}
         <div className="absolute top-0 right-0 w-48 h-48 bg-[#FF862F]/10 rounded-full blur-3xl pointer-events-none" />
 

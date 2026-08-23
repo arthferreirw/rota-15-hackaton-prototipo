@@ -82,8 +82,8 @@ export const FinancialPage: React.FC = () => {
         </div>
 
         {/* Export / Import Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2 print:hidden">
-          <label className="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs px-3 py-2 rounded-xl transition-all cursor-pointer border border-slate-300 shadow-2xs">
+        <div className="flex flex-wrap items-center gap-2 print:hidden w-full sm:w-auto">
+          <label className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs px-3 py-2 rounded-xl transition-all cursor-pointer border border-slate-300 shadow-2xs">
             <Upload size={14} />
             <span>Importar CSV</span>
             <input type="file" accept=".csv" onChange={handleImportCSV} className="hidden" />
@@ -91,7 +91,7 @@ export const FinancialPage: React.FC = () => {
 
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs px-3 py-2 rounded-xl transition-all cursor-pointer border border-slate-300 shadow-2xs"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs px-3 py-2 rounded-xl transition-all cursor-pointer border border-slate-300 shadow-2xs"
           >
             <Download size={14} />
             <span>Exportar CSV</span>
@@ -99,7 +99,7 @@ export const FinancialPage: React.FC = () => {
 
           <button
             onClick={handleExportPDF}
-            className="flex items-center gap-1.5 bg-[#FF862F] hover:bg-[#E5721D] text-white font-bold text-xs px-3 py-2 rounded-xl transition-all cursor-pointer shadow-xs shadow-[#FF862F]/20"
+            className="w-full sm:w-auto flex items-center justify-center gap-1.5 bg-[#FF862F] hover:bg-[#E5721D] text-white font-bold text-xs px-3 py-2 rounded-xl transition-all cursor-pointer shadow-xs shadow-[#FF862F]/20"
           >
             <Printer size={14} />
             <span>Relatório PDF</span>
@@ -122,13 +122,13 @@ export const FinancialPage: React.FC = () => {
             <FileText size={16} className="text-[#FF862F]" />
             DRE Simplificado — Período Atual (Agosto/2026)
           </h3>
-          <span className="text-xs text-emerald-800 font-bold bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
+          <span className="text-xs text-emerald-800 font-bold bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 shrink-0">
             Margem: {margin}%
           </span>
         </div>
 
-        <div className="p-4">
-          <table className="w-full text-xs text-left">
+        <div className="p-2 sm:p-4 overflow-x-auto">
+          <table className="w-full text-xs text-left min-w-[500px]">
             <thead className="bg-slate-100 text-slate-700 uppercase text-[11px] font-extrabold tracking-wider border-b border-slate-200 print:bg-gray-100 print:text-black">
               <tr>
                 <th className="py-3 px-3">ESTRUTURA DE RESULTADOS</th>
