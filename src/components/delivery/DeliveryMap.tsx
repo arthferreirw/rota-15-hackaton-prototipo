@@ -117,6 +117,7 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
   useEffect(() => {
     if (!activeRoute || activeRoute.orders.length === 0) {
       setRoutePolyline([]);
+      setIsLoadingRoute(false);
       return;
     }
 
@@ -124,26 +125,23 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
 
     const fetchOSRMRoute = async () => {
       setIsLoadingRoute(true);
+
+      const motoboy = motoboys.find(m => m.id === activeRoute.motoboyId);
+      const startPoint: [number, number] = motoboy
+        ? [motoboy.currentLat, motoboy.currentLng]
+        : [activeRoute.orders[0].customerLat, activeRoute.orders[0].customerLng];
+
+      const restIds = Array.from(new Set(activeRoute.orders.map(o => o.restaurantId)));
+      const restPoints = restIds
+        .map(id => mockGeoPoints.find(p => p.id === id))
+        .filter((p): p is typeof mockGeoPoints[0] => Boolean(p))
+        .map(p => [p.lat, p.lng] as [number, number]);
+
+      const customerPoints = activeRoute.orders.map(o => [o.customerLat, o.customerLng] as [number, number]);
+      const fallbackWaypoints: [number, number][] = [startPoint, ...restPoints, ...customerPoints];
+
       try {
-        // Collect waypoints: Motoboy pos -> Unique Restaurants -> Ordered Customer destinations
-        const motoboy = motoboys.find(m => m.id === activeRoute.motoboyId);
-        const startPoint: [number, number] = motoboy
-          ? [motoboy.currentLat, motoboy.currentLng]
-          : [activeRoute.orders[0].customerLat, activeRoute.orders[0].customerLng];
-
-        // Gather unique restaurant locations
-        const restIds = Array.from(new Set(activeRoute.orders.map(o => o.restaurantId)));
-        const restPoints = restIds
-          .map(id => mockGeoPoints.find(p => p.id === id))
-          .filter((p): p is typeof mockGeoPoints[0] => Boolean(p))
-          .map(p => [p.lat, p.lng] as [number, number]);
-
-        // Customer locations
-        const customerPoints = activeRoute.orders.map(o => [o.customerLat, o.customerLng] as [number, number]);
-
-        const allWaypoints = [startPoint, ...restPoints, ...customerPoints];
-
-        const coordinatesString = allWaypoints.map(([lat, lng]) => `${lng},${lat}`).join(';');
+        const coordinatesString = fallbackWaypoints.map(([lat, lng]) => `${lng},${lat}`).join(';');
         const url = `https://router.project-osrm.org/route/v1/driving/${coordinatesString}?overview=full&geometries=geojson`;
 
         const response = await fetch(url, { signal: controller.signal });
@@ -155,15 +153,19 @@ export const DeliveryMap: React.FC<DeliveryMapProps> = ({
         if (Array.isArray(coords) && coords.length > 0) {
           setRoutePolyline(coords.map(([lng, lat]) => [lat, lng]));
         } else {
-          setRoutePolyline(allWaypoints);
+          setRoutePolyline(activeRoute.routeCoordinates?.length > 0 ? activeRoute.routeCoordinates : fallbackWaypoints);
         }
-      } catch {
-        // Fallback straight lines
-        if (activeRoute.routeCoordinates && activeRoute.routeCoordinates.length > 0) {
-          setRoutePolyline(activeRoute.routeCoordinates);
-        }
+      } catch (err: any) {
+        if (err.name === 'AbortError') return;
+        setRoutePolyline(
+          activeRoute.routeCoordinates && activeRoute.routeCoordinates.length > 0
+            ? activeRoute.routeCoordinates
+            : fallbackWaypoints
+        );
       } finally {
-        setIsLoadingRoute(false);
+        if (!controller.signal.aborted) {
+          setIsLoadingRoute(false);
+        }
       }
     };
 

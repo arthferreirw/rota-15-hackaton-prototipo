@@ -10,6 +10,7 @@ import {
   mockDeliveryOrders,
   mockDeliveryRoutes
 } from '../data/mockDeliveryData';
+import { mockGeoPoints } from '../data/vicosaGeoData';
 import type { DeliveryRoute, DeliveryOrder } from '../types';
 
 export const DeliveryMapPage: React.FC = () => {
@@ -52,29 +53,40 @@ export const DeliveryMapPage: React.FC = () => {
 
       setOrders(updatedOrders);
 
+      // Extract restaurant and customer waypoints for fallback map polyline
+      const restIds = Array.from(new Set(targetOrders.map(o => o.restaurantId)));
+      const restWaypoints = restIds
+        .map(id => mockGeoPoints.find(p => p.id === id))
+        .filter((p): p is typeof mockGeoPoints[0] => Boolean(p))
+        .map(p => [p.lat, p.lng] as [number, number]);
+
+      const customerWaypoints = targetOrders.map(o => [o.customerLat, o.customerLng] as [number, number]);
+
+      const routeWaypoints: [number, number][] = [
+        [availableMotoboy.currentLat, availableMotoboy.currentLng],
+        ...restWaypoints,
+        ...customerWaypoints
+      ];
+
       // Create new optimized route
-      const zone = zones.find(z => z.id === zoneId);
       const newRoute: DeliveryRoute = {
         id: `route-opt-${Date.now()}`,
         motoboyId: availableMotoboy.id,
         motoboyName: availableMotoboy.name,
         orders: targetOrders,
         status: 'em_andamento',
-        totalDistanceKm: (targetOrders.length * 1.6).toFixed(1) as unknown as number,
+        totalDistanceKm: parseFloat((targetOrders.length * 1.6).toFixed(1)),
         estimatedTimeMin: targetOrders.length * 7 + 5,
         fuelSavingsPercent: Math.min(30 + targetOrders.length * 8, 65),
         distanceSavedKm: parseFloat((targetOrders.length * 1.1).toFixed(1)),
-        routeCoordinates: [
-          [availableMotoboy.currentLat, availableMotoboy.currentLng],
-          ...(zone ? [[zone.centerLat, zone.centerLng] as [number, number]] : [])
-        ]
+        routeCoordinates: routeWaypoints
       };
 
       setActiveRoute(newRoute);
       setSelectedZoneId(zoneId);
       setSelectedMotoboyId(availableMotoboy.id);
       setIsOptimizing(false);
-    }, 800);
+    }, 400);
   };
 
   const handleClearRoute = () => {
