@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import {
   Search,
   Bell,
@@ -8,7 +8,14 @@ import {
   CheckCircle2,
   X,
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  LayoutDashboard,
+  DollarSign,
+  TrendingUp,
+  Package,
+  Bike,
+  ShoppingBag,
+  Calculator
 } from 'lucide-react';
 import { mockRestaurant } from '../../data/mockData';
 
@@ -19,6 +26,20 @@ export const DesktopHeader: React.FC = () => {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
+
+  // Top Horizontal Navbar Links
+  const topNavLinks = [
+    { label: 'Geral', path: '/', icon: <LayoutDashboard size={13} /> },
+    { label: 'Financeiro', path: '/financeiro', icon: <DollarSign size={13} /> },
+    { label: 'Rentabilidade', path: '/rentabilidade', icon: <TrendingUp size={13} /> },
+    { label: 'Estoque', path: '/estoque', icon: <Package size={13} /> },
+    { label: 'Delivery', path: '/delivery', icon: <Bike size={13} />, badge: '5' },
+    { label: 'Comparar Preços', path: '/comparar-precos', icon: <Search size={13} /> },
+    { label: 'Compra Coletiva', path: '/compra-coletiva', icon: <ShoppingBag size={13} /> },
+    { label: 'Oportunidades', path: '/oportunidades', icon: <Sparkles size={13} />, badge: '3' },
+    { label: 'Mapa Viçosa', path: '/mapa', icon: <MapPin size={13} /> },
+    { label: 'Simulador', path: '/simulador', icon: <Calculator size={13} /> }
+  ];
 
   // Mock Notifications
   const [notifications, setNotifications] = useState([
@@ -98,7 +119,7 @@ export const DesktopHeader: React.FC = () => {
   return (
     <header className="hidden md:flex items-center justify-between gap-3 px-4 lg:px-6 py-2.5 bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30 shadow-2xs min-h-[56px]">
       {/* Left Search Bar (Fluid Width) */}
-      <div className="relative flex-1 min-w-[180px] max-w-xs md:max-w-sm lg:max-w-md" ref={searchRef}>
+      <div className="relative shrink-0 w-64 lg:w-72 xl:w-80" ref={searchRef}>
         <div className="relative flex items-center">
           <Search size={15} className="absolute left-3 text-slate-400 pointer-events-none shrink-0" />
           <input
@@ -109,7 +130,7 @@ export const DesktopHeader: React.FC = () => {
               setIsSearchOpen(true);
             }}
             onFocus={() => setIsSearchOpen(true)}
-            placeholder="Buscar fornecedores, pedidos, páginas..."
+            placeholder="Buscar fornecedores, pedidos..."
             className="w-full pl-9 pr-8 py-1.5 text-xs font-semibold bg-slate-100/80 hover:bg-slate-100 focus:bg-white text-slate-900 placeholder:text-slate-400 rounded-xl border border-transparent focus:border-[#FF862F] focus:ring-2 focus:ring-[#FF862F]/20 transition-all outline-none"
           />
           {searchQuery ? (
@@ -123,7 +144,7 @@ export const DesktopHeader: React.FC = () => {
               <X size={14} />
             </button>
           ) : (
-            <kbd className="absolute right-2.5 px-1.5 py-0.5 text-[9px] font-bold text-slate-400 bg-slate-200/60 rounded border border-slate-300/60 hidden xl:inline-block">
+            <kbd className="absolute right-2.5 px-1.5 py-0.5 text-[9px] font-bold text-slate-400 bg-slate-200/60 rounded border border-slate-300/60 hidden 2xl:inline-block">
               Ctrl K
             </kbd>
           )}
@@ -158,23 +179,48 @@ export const DesktopHeader: React.FC = () => {
         )}
       </div>
 
+      {/* Center Top Navigation Items (Aproveita todo o espaço superior) */}
+      <nav className="flex-1 flex items-center gap-1 overflow-x-auto no-scrollbar py-1 px-2 bg-slate-50/90 border border-slate-200/80 rounded-2xl max-w-fit mx-auto">
+        {topNavLinks.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            className={({ isActive }) =>
+              `flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 ${
+                isActive
+                  ? 'bg-[#FF862F] text-white shadow-2xs font-extrabold'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+              }`
+            }
+          >
+            {item.icon}
+            <span>{item.label}</span>
+            {item.badge && (
+              <span className="px-1.5 py-0.2 rounded-md text-[9px] font-black bg-[#FF3131] text-white">
+                {item.badge}
+              </span>
+            )}
+          </NavLink>
+        ))}
+      </nav>
+
       {/* Right Controls Container */}
-      <div className="flex items-center gap-2 lg:gap-3.5 shrink-0">
+      <div className="flex items-center gap-2 lg:gap-3 shrink-0">
         {/* City & Cluster Info Badge */}
-        <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold shadow-2xs shrink-0">
+        <div className="hidden 2xl:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold shadow-2xs shrink-0">
           <MapPin size={13} className="text-[#FF862F] shrink-0" />
-          <span className="truncate max-w-[100px] xl:max-w-none">{mockRestaurant.city}-{mockRestaurant.state}</span>
+          <span>{mockRestaurant.city}-{mockRestaurant.state}</span>
           <span className="w-1 h-1 rounded-full bg-slate-300 shrink-0" />
           <span className="text-[#FF862F] font-extrabold flex items-center gap-1 shrink-0">
             <Sparkles size={11} />
-            <span className="hidden xl:inline">Cluster</span> C08
+            Cluster C08
           </span>
         </div>
 
         {/* Network Status Badge */}
-        <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200/60 text-xs font-extrabold shrink-0" title="Rede Viçosa Ativa">
+        <div className="hidden lg:flex items-center gap-1 px-2.5 py-1 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200/60 text-xs font-extrabold shrink-0" title="Rede Viçosa Ativa">
           <ShieldCheck size={13} className="text-emerald-600 shrink-0" />
-          <span className="hidden xl:inline">Rede Ativa</span>
+          <span>Rede Ativa</span>
         </div>
 
         {/* Notifications Popover */}
@@ -274,4 +320,5 @@ export const DesktopHeader: React.FC = () => {
     </header>
   );
 };
+
 
