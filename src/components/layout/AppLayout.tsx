@@ -19,7 +19,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col md:flex-row overflow-x-hidden">
+    <div className="h-screen bg-white text-slate-900 flex flex-col md:flex-row overflow-hidden">
       {/* Mobile Top Header */}
       <MobileHeader onOpenMenu={() => setIsMobileMenuOpen(true)} />
 
@@ -30,12 +30,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       />
 
       {/* Main Content Container with Desktop Navbar */}
-      <div className="flex-1 flex flex-col min-w-0 bg-white">
+      <div className="flex-1 flex flex-col h-full min-w-0 bg-white overflow-hidden">
         {/* Desktop Top Navbar */}
         <DesktopHeader />
 
         {/* Main Content Area */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 pb-20 md:pb-8 min-w-0 bg-white">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 pb-20 md:pb-8 min-w-0 bg-white">
           <div className="max-w-7xl mx-auto space-y-6">
             {children}
           </div>
