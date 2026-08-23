@@ -1,0 +1,24 @@
+/* Palette Utility Classes */
+.bg-brand-primary {
+  background-color: #FF862F;
+}
+
+.text-brand-primary {
+  color: #FF862F;
+}
+
+.border-brand-primary {
+  border-color: #FF862F;
+}
+
+.bg-brand-danger {
+  background-color: #FF3131;
+}
+
+.text-brand-danger {
+  color: #FF3131;
+}
+
+.border-brand-danger {
+  border-color: #FF3131;
+}
